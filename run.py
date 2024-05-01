@@ -17,14 +17,18 @@ Attributes:
 """
 
 import os
-from src import App, Log, Config, CLIUtility
+# from src import App, Log, Config, CLIUtility
+from devinci_pykit.app import App
+from log import log as Log
+from config import config as Config
+from cli import cli as CLI
 
 if __name__ == "__main__":
-    log = Log()
-    config = Config()
+    log = Log.Log()
+    config = Config.Config()
 
     log.configure_logging(10, config.get_logging_format())
-    cli = CLIUtility()
+    cli = CLI.CLIUtility()
 
     if not os.path.exists('config.ini'):
         Config.generate_config_template()
