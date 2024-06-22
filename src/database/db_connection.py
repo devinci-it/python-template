@@ -1,11 +1,27 @@
 """
-db_connection.py
-
-This module provides a static singleton utility class `DBConnection` for managing connections
+`db_connection.py` | Module providing a static singleton utility class `DBConnection` for managing connections
 to a MySQL database using credentials stored in environment variables.
-It includes methods to establish, disconnect, check connection status, and reset the connection.
 
+This module includes methods to establish, disconnect, check connection status, and reset the connection
+to the MySQL database.
+
+Usage:
+- Ensure environment variables `DB_HOST`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD` are properly set.
+- Use `DBConnection.get_instance()` to obtain the singleton instance of `DBConnection`.
+- Methods available:
+  - `connect()`: Establishes a connection to the MySQL database.
+  - `disconnect()`: Disconnects from the MySQL database.
+  - `is_connected()`: Checks if connected to the MySQL database.
+  - `reset_connection()`: Resets the connection by reconnecting to the MySQL database.
+  - `debug_banner()`: Displays debug information about configured database credentials.
+
+Dependencies:
+- Python packages: mysql-connector-python, dotenv
+
+Author: devinci-it
+Date: 2024 06
 """
+
 
 from ..cli.cli import CLIUtility
 from mysql.connector import Error, connect
