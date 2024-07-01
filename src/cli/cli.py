@@ -1,7 +1,50 @@
+import click
+from colorama import init, Fore, Style
+
+# Initialize colorama to work on Windows as well
+init(autoreset=True)
 class CLIUtility:
     """
     Utility class for printing formatted messages and headers in the command-line interface.
     """
+
+    @staticmethod
+    def prompt_with_header(header, sub_context):
+        """
+        Displays a formatted prompt message with a header and sub/context.
+
+        Args:
+        - header (str): Main header of the prompt.
+        - sub_context (str): Sub or contextual message providing additional information.
+
+        Example:
+        >>> CLIUtility.prompt_with_header("User Input Required", "Please enter your name:")
+        User Input Required
+        ------------------
+        Please enter your name:
+        """
+        print(f"{header}\n{'-' * len(header)}")
+        print(sub_context)
+
+    @staticmethod
+    def select_with_click(prompt, options):
+        """
+        Prompts the user to select an option from a list using Click library.
+
+        Args:
+        - prompt (str): Prompt message to display.
+        - options (list): List of options to present to the user.
+
+        Returns:
+        - str: Selected option.
+        """
+        click.echo(f"{Fore.BLUE}{Style.BRIGHT}{prompt}{Style.RESET_ALL}")
+        for i, option in enumerate(options, start=1):
+            click.echo(f" {Fore.GREEN}{Style.NORMAL}{i}.{Style.RESET_ALL} {option}")
+        choice = click.prompt(f"{Fore.YELLOW}{Style.BRIGHT}Your choice [1-{len(options)}]:{Style.RESET_ALL}",
+                              type=int, show_choices=False, default=1, show_default=True)
+        return options[choice - 1]
+
 
     @staticmethod
     def header(title):
@@ -63,3 +106,4 @@ class CLIUtility:
             message (str): The message to be printed.
         """
         print(f"\033[1;32m SUCCESS {' ' * 8}\u25CF \033[0m {message}")
+
