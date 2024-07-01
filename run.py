@@ -15,15 +15,17 @@ Attributes:
     config (Config): An instance of the configuration handler.
     cli (CLIUtility): An instance of the command-line interface utility.
 """
-
+import logging
 import os
-from src import App, Log, Config, CLIUtility
-
+from src import App, Config, CLIUtility
+from src.log import logger as log
 if __name__ == "__main__":
-    log = Log()
+    log.set_log_file("storage/logs/app.log")
+    log.log("Logging initialized.")
+    log.set_log_level(logging.DEBUG)
+    log.log("Debug message.")
     config = Config()
 
-    log.configure_logging(10, config.get_logging_format())
     cli = CLIUtility()
 
     if not os.path.exists('config.ini'):
